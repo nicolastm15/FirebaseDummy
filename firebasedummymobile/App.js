@@ -10,7 +10,7 @@ import {serverUrl} from './serverUrl.json';
 import googleServicesCredentials from './android/app/google-services.json';
 
 //here comes the name of your domain server: heroku, aws, gcs, or even your local machine
-const httpsServer = serverUrl;
+const httpsServer = 'http://192.168.0.109:8080';
 
 //clientId do app relacionada com o google.
 const {
@@ -45,7 +45,7 @@ async function handleSignOut() {
 }
 
 function sayHello(idToken) {
-  fetch(`${httpsServer}/hello`, {
+  fetch(`${httpsServer}/googlesignup`, {
     headers: {Authorization: `Bearer ${idToken}`},
   })
     .then((response) => response.json())
