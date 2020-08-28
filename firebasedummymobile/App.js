@@ -44,17 +44,21 @@ async function handleSignOut() {
   }
 }
 
-function sayHello(idToken) {
-  fetch(`${httpsServer}/googlesignup`, {
-    headers: {Authorization: `Bearer ${idToken}`},
-  })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson.message);
+async function sayHello(idToken) {
+  
+  try {
+    const response = await fetch(`${httpsServer}/googlesignup`, {
+      headers: {Authorization: `Bearer ${idToken}`},
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    console.log(response.status);
+    const responseJson = await response.json();
+    console.log(responseJson)
+      
+    } catch (error) {
+    console.log(error.message);
+      
+  }
+  
 }
 
 export default function App() {
