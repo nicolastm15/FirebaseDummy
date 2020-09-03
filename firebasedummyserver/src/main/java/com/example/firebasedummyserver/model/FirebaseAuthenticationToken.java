@@ -4,6 +4,10 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class FirebaseAuthenticationToken extends AbstractAuthenticationToken {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 107539984438928718L;
 	private final String idToken;
 	
 	public String getIdToken() {

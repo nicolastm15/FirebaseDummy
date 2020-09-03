@@ -24,12 +24,11 @@ public class FirebasedummyserverApplication {
 		SpringApplication.run(FirebasedummyserverApplication.class, args);
 
 		try {
-			InputStream serviceAccount = FirebasedummyserverApplication.class.getResourceAsStream("/serviceAccountKey.json");
+			InputStream serviceAccount = FirebasedummyserverApplication.class
+					.getResourceAsStream("/serviceAccountKey.json");
 
 			FirebaseOptions options = new FirebaseOptions.Builder()
-					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
-					.setDatabaseUrl(databaseUrl)
-					.build();
+					.setCredentials(GoogleCredentials.fromStream(serviceAccount)).setDatabaseUrl(databaseUrl).build();
 
 			FirebaseApp.initializeApp(options);
 			logger.info("Firebase app: {} Initialized!", FirebaseApp.getInstance().getName());

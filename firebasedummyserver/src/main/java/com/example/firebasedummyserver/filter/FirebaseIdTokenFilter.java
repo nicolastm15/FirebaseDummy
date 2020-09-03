@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.firebasedummyserver.model.FirebaseAuthenticationToken;
-import com.example.firebasedummyserver.provider.FirebaseIdTokenAuthenticationProvider;
 
 public class FirebaseIdTokenFilter extends OncePerRequestFilter {
 	public static final Logger logger = LoggerFactory.getLogger(FirebaseIdTokenFilter.class);
