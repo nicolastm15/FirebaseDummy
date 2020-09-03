@@ -3,9 +3,10 @@ import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
-  GoogleSigninButton,
 } from '@react-native-community/google-signin';
 import googleServicesCredentials from '../../android/app/google-services.json';
+
+const httpsServer = 'http://192.168.0.109:8080';
 
 //clientId do app relacionada com o google.
 const {
@@ -40,15 +41,15 @@ export const AuthProvider = ({children}) => {
        const firebaseIdToken = await auth().currentUser.getIdToken(true);
        setUser(auth().currentUser);
        setFirebaseIdToken(firebaseIdToken);
-       signUpMyServer(firebaseIdToken)
+       googleSignUpWithMyServer(firebaseIdToken)
      } catch (error) {
        console.log('Error Message: ' + error.message);
      }
    }
 
-     async function signUpMyServer(idToken) {
+     async function googleSignUpWithMyServer(idToken) {
        try {
-         const response = await fetch(`${httpsServer}/hello`, {
+         const response = await fetch(`${httpsServer}/user`, {
            headers: {Authorization: `Bearer ${idToken}`},
          });
          console.log(response.status);
