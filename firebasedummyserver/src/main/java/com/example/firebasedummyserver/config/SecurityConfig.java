@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.addFilterBefore(new FirebaseIdTokenFilter(), BasicAuthenticationFilter.class)
 		.authorizeRequests()
+		.antMatchers("/googleuser").permitAll()
 		.antMatchers("/hello")
 		.authenticated();
 	}
