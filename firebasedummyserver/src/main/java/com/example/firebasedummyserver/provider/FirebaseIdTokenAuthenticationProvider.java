@@ -7,8 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+import com.example.firebasedummyserver.model.entities.EntityUser;
 import com.example.firebasedummyserver.model.FirebaseAuthenticationToken;
-import com.example.firebasedummyserver.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -29,7 +29,7 @@ public class FirebaseIdTokenAuthenticationProvider implements AuthenticationProv
 			UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
 			logger.info("User fetched, uid:{}", userRecord.getUid());
 
-			return new User(userRecord);
+			return new EntityUser(userRecord);
 		} catch (FirebaseAuthException e) {
 			if (e.getErrorCode().equals("id-token-revoked")) {
 				throw new SecurityException("User token has been revoked, please sign in again");
