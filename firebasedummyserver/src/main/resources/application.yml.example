@@ -1,0 +1,21 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/nomedobd
+        username: USERNAME
+        password: PASSWORD
+        tomcat: 
+            test-while-idle: true
+            validation-query: SELECT 1
+        driver-class-name: org.postgresql.Driver
+
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+
+firebase:
+    database:
+        url: YOUR_FIREBASE_DATABASE_HERE
