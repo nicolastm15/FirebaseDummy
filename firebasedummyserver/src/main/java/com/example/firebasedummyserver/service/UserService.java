@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
 	 * @throws IllegalArgumentException if the "user" parameter is null
 	 * 
 	 */
-	public EntityUser addBasicUser(EntityUser user) throws IllegalArgumentException {
+	public EntityUser addBasicUser(EntityUser user) throws IllegalArgumentException, DataIntegrityViolationException {
 		if (user == null) {
 			throw new IllegalArgumentException("received: null object as a parameter; expecting: An EntityUser object");
 		}
