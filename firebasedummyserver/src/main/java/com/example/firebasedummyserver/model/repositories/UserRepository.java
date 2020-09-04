@@ -16,7 +16,7 @@ public interface UserRepository extends PagingAndSortingRepository<EntityUser, L
 	 * @param username String - A user's username
 	 * @return EntityUser - An EntityUser object
 	 */
-	@Query("select u from EntityUser u where u.username like :username")
+	@Query("select u from EntityUser u where u.username = :username")
 	public EntityUser findByUsername(@Param("username") String username);
 
 	/**
