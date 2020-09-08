@@ -25,39 +25,16 @@ import com.example.firebasedummyserver.service.UserDetailsServiceImpl;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private final FirebaseIdTokenAuthenticationProvider firebaseAuthenticationProvider;
-
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new UserDetailsServiceImpl();
-	}
-
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
-	public DaoAuthenticationProvider daoAuthenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
-		authProvider.setPasswordEncoder(passwordEncoder());
-		return authProvider;
-	}
+	@Autowired
+	FirebaseIdTokenAuthenticationProvider firebaseAuthenticationProvider;
 
 	@Autowired
-	public SecurityConfig(FirebaseIdTokenAuthenticationProvider authenticationProvider) {
-		this.firebaseAuthenticationProvider = authenticationProvider;
-	}
+	UserDetailsServiceImpl userDetailsServiceImpl;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.addFilterBefore(new FirebaseIdTokenFilter(), BasicAuthenticationFilter.class).authorizeRequests()
-				.antMatchers("/googleuser").permitAll().antMatchers("/hello").hasAuthority("ADMIN").anyRequest().authenticated();
+				.antMatchers("/hello").hasRole("ADMIN").antMatchers("/googleuser").permitAll();
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(firebaseAuthenticationProvider).authenticationProvider(daoAuthenticationProvider());
-	}
 }
