@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  * This class describes the roles a user can have, like admin, simple user, and
  * any other role that may be created in the future. Each role defines a set of
@@ -18,30 +20,13 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "roles")
-public class EntityRole {
+public class EntityRole implements GrantedAuthority{
+
+	private static final long serialVersionUID = -2823311224048773918L;
 
 	@Id
-	@Column(name = "role_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer id;
-	
 	@Column(name = "role_name", unique = true)
-	@NotNull
 	private String name;
-
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the name
@@ -55,6 +40,11 @@ public class EntityRole {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String getAuthority() {
+		return this.name;
 	}
 
 }
