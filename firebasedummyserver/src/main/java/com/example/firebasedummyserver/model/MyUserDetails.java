@@ -72,5 +72,11 @@ public class MyUserDetails implements UserDetails {
       return true;
    }
 
+   /**
+    * @return the user
+    */
+   public EntityUser getUser() {
+      return user;
+   }
    
 }
