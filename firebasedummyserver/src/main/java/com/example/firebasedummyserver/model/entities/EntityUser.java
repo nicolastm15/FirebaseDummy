@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.database.annotations.NotNull;
@@ -19,6 +20,8 @@ public class EntityUser  implements Authentication {
 	 *
 	 */
 	private static final long serialVersionUID = 8176895017470969924L;
+
+	public EntityUser() {}
 
 	public EntityUser(UserRecord userRecord) {
 		super();
@@ -55,7 +58,7 @@ public class EntityUser  implements Authentication {
 	private Boolean emailVerified = false;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
 	private List<EntityRole> roles = new ArrayList<>();
 
 	@Override
@@ -66,8 +69,14 @@ public class EntityUser  implements Authentication {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		List<EntityRole> roles = getRoles();
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+		for (EntityRole role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		}
+
+		return authorities;
 	}
 
 	@Override
@@ -84,14 +93,13 @@ public class EntityUser  implements Authentication {
 
 	@Override
 	public Object getPrincipal() {
-		// TODO Auto-generated method stub
-		return null;
+		return null ;
 	}
 
 	@Override
 	public boolean isAuthenticated() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -201,7 +209,11 @@ public class EntityUser  implements Authentication {
 	/**
 	 * @param roles the roles to set
 	 */
-	public void setRoles(EntityRole role) {
+	public void setRoles(List<EntityRole> roles) {
+		this.roles = roles;
+	}
+
+	public void setRole(EntityRole role){
 		this.roles.add(role);
 	}
 

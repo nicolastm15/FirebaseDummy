@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -19,7 +16,7 @@ import com.example.firebasedummyserver.model.repositories.RoleRepository;
 import com.example.firebasedummyserver.model.repositories.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -70,8 +67,8 @@ public class UserService implements UserDetailsService {
 		}
 
 		try {
-			EntityRole basicRole = roleRepository.findByName("USER");
-			user.setRoles(basicRole);
+			EntityRole basicRole = roleRepository.findByName("ROLE_USER");
+			user.setRole(basicRole);
 
 			return userRepository.save(user);
 
@@ -176,11 +173,6 @@ public class UserService implements UserDetailsService {
 			return user;
 		}
 
-		return null;
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return null;
 	}
 
