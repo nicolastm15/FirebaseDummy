@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import {Button, View} from 'react-native';
+import {Button, View, Alert, ToastAndroid} from 'react-native';
 
 import {serverUrl} from '../../serverUrl.json';
 import {AuthContext} from '../contexts/AuthContext';
@@ -19,7 +19,7 @@ export default HelloButton = ({style}) => {
       });
       console.log(response.status);
       const responseJson = await response.json();
-      console.log(responseJson);
+      ToastAndroid.show(responseJson.message,25);
     } catch (error) {
       console.log(error.message);
     }
