@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import com.example.firebasedummyserver.model.entities.EntityUser;
@@ -33,14 +30,17 @@ public class FirebaseIdTokenAuthenticationProvider implements AuthenticationProv
 
 		try {
 			final FirebaseToken firebaseToken = FirebaseAuth.getInstance().verifyIdToken(token.getIdToken());
-
 			final String uid = firebaseToken.getUid();
 			final UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
-			logger.info("User fetched, uid:{}", userRecord.getUid());
-			Authentication authentication2 = new EntityUser(userRecord);
-			MyUserDetails userFromDatabase = (MyUserDetails) userDetailsService.loadUserByUsername(((EntityUser) authentication2).getUsername());
-			((EntityUser) authentication2).setRoles(userFromDatabase.getUser().getRoles());
-			return authentication2;
+
+			EntityUser decodedUser = new EntityUser(userRecord);
+			
+			MyUserDetails userDetailsFromDatabase = userDetailsService.loadUserByUsername(decodedUser.getUsername());
+			if (userDetailsFromDatabase != null) {
+				decodedUser.setRoles(userDetailsFromDatabase.getUser().getRoles());
+			}
+			
+			return decodedUser;
 		} catch (FirebaseAuthException e) {
 			if (e.getErrorCode().equals("id-token-revoked")) {
 				throw new SecurityException("User token has been revoked, please sign in again");

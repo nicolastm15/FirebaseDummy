@@ -4,7 +4,6 @@ import com.example.firebasedummyserver.model.MyUserDetails;
 import com.example.firebasedummyserver.model.entities.EntityUser;
 import com.example.firebasedummyserver.model.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
    private UserRepository userRepository;
 
    @Override
-   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+   public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
       EntityUser user = userRepository.findByUsername(username);
 
       if (user == null) {
-         throw new UsernameNotFoundException("Could not find user");
+         return null;
       }
 
       return new MyUserDetails(user);
