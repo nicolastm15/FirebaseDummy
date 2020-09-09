@@ -25,8 +25,9 @@ public class EntityUser  implements Authentication {
 
 	public EntityUser(UserRecord userRecord) {
 		super();
+		String username = UserUtil.extractUsernameFromEmail(userRecord.getEmail());
 		setEmail(userRecord.getEmail());
-		setUsername(userRecord.getEmail());
+		setUsername(username);
 		setName(userRecord.getDisplayName());
 		setImageUrl(userRecord.getPhotoUrl());
 		setPhoneNumber(userRecord.getPhoneNumber());		
@@ -150,11 +151,8 @@ public class EntityUser  implements Authentication {
 		return username;
 	}
 
-	/**
-	 * @param username the username to set
-	 */
 	public void setUsername(String username) {
-		this.username = username.split("@")[0];
+		this.username = username;
 	}
 
 	/**
