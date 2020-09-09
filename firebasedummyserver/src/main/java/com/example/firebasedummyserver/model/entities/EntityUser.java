@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.example.firebasedummyserver.utils.UserUtil;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.internal.NonNull;
