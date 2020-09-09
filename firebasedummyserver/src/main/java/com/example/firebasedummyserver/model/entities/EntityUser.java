@@ -58,6 +58,8 @@ public class EntityUser  implements Authentication {
 	@Column(nullable = false)
 	private Boolean emailVerified = false;
 
+	private Boolean isAuthenticated = false;
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
 	private List<EntityRole> roles = new ArrayList<>();
@@ -99,14 +101,12 @@ public class EntityUser  implements Authentication {
 
 	@Override
 	public boolean isAuthenticated() {
-		// TODO Auto-generated method stub
-		return true;
+		return isAuthenticated;
 	}
 
 	@Override
 	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		this.isAuthenticated = isAuthenticated;
 	}
 
 	/**
