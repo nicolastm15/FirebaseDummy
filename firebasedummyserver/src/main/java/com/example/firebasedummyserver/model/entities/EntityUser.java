@@ -16,9 +16,6 @@ import com.google.firebase.internal.NonNull;
 @Table(name = "users")
 public class EntityUser  implements Authentication {
 	
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 8176895017470969924L;
 
 	public EntityUser() {}
@@ -104,16 +101,10 @@ public class EntityUser  implements Authentication {
 		this.isAuthenticated = isAuthenticated;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -127,23 +118,14 @@ public class EntityUser  implements Authentication {
 		this.name = name;
 	}
 
-	/**
-	 * @return the email
-	 */
 	public String getEmail() {
 		return email;
 	}
 
-	/**
-	 * @param email the email to set
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * @return the username
-	 */
 	public String getUsername() {
 		return username;
 	}
@@ -152,30 +134,18 @@ public class EntityUser  implements Authentication {
 		this.username = username;
 	}
 
-	/**
-	 * @return the imageUrl
-	 */
 	public String getImageUrl() {
 		return imageUrl;
 	}
 
-	/**
-	 * @param imageUrl the imageUrl to set
-	 */
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
-	/**
-	 * @return the phoneNumber
-	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	/**
-	 * @param phoneNumber the phoneNumber to set
-	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
@@ -188,16 +158,10 @@ public class EntityUser  implements Authentication {
 		this.isEmailVerified = emailVerified;
 	}
 
-	/**
-	 * @return the roles
-	 */
 	public List<EntityRole> getRoles() {
 		return roles;
 	}
 
-	/**
-	 * @param roles the roles to set
-	 */
 	public void setRoles(List<EntityRole> roles) {
 		this.roles = roles;
 	}
