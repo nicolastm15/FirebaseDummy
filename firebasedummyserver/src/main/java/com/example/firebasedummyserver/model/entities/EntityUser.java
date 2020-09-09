@@ -66,12 +66,6 @@ public class EntityUser  implements Authentication {
 	private List<EntityRole> roles = new ArrayList<>();
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<EntityRole> roles = getRoles();
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -124,9 +118,11 @@ public class EntityUser  implements Authentication {
 		this.id = id;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
