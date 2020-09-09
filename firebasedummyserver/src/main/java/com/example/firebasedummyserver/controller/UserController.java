@@ -19,19 +19,33 @@ public class UserController {
    @Autowired
    private UserService userService;
 
-   @GetMapping("/googleuser")
-   public @ResponseBody ResponseEntity<EntityUser> createUser(){
+   @GetMapping("/basic/user/google")
+   public @ResponseBody ResponseEntity<EntityUser> createBasicUser(){
       try {
          EntityUser user = (EntityUser) SecurityContextHolder.getContext().getAuthentication();
          EntityUser savedUser = userService.addBasicUser(user);
-         if (savedUser != null)
-            return new ResponseEntity<EntityUser>(savedUser, HttpStatus.CREATED);
-         return new ResponseEntity<>(HttpStatus.CONFLICT);
+         
+         return new ResponseEntity<EntityUser>(savedUser, HttpStatus.CREATED);
 
-      } catch (IllegalArgumentException e) {
-         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
       } catch (DataIntegrityViolationException e ){
          return new ResponseEntity<>(HttpStatus.CONFLICT);
+      } catch (IllegalArgumentException e) {
+         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
+      
+   }
+   @GetMapping("/admin/user/google")
+   public @ResponseBody ResponseEntity<EntityUser> createAdminUser(){
+      try {
+         EntityUser user = (EntityUser) SecurityContextHolder.getContext().getAuthentication();
+         EntityUser savedUser = userService.addAdminUser(user);
+         
+         return new ResponseEntity<EntityUser>(savedUser, HttpStatus.CREATED);
+
+      } catch (DataIntegrityViolationException e ){
+         return new ResponseEntity<>(HttpStatus.CONFLICT);
+      } catch (IllegalArgumentException e) {
+         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
       }
       
    }

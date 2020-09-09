@@ -52,7 +52,7 @@ public class UserService {
 	}
 
 	/**
-	 * This method saves the user in the database, if one doesn't already exist.
+	 * This method saves a user with basic privileges in the database, if this same user doesn't already exist.
 	 * 
 	 * @param user EntityUser - An EntityUser object
 	 * @return EntityUser - The recently saved EntityUser object, if creation was
@@ -67,7 +67,7 @@ public class UserService {
 		}
 
 		try {
-			EntityRole basicRole = roleRepository.findByName("ROLE_USER");
+			EntityRole basicRole = roleRepository.findByName("ROLE_BASIC");
 			user.setRole(basicRole);
 
 			return userRepository.save(user);
@@ -77,6 +77,32 @@ public class UserService {
 		} catch (DataIntegrityViolationException e){
 			throw new DataIntegrityViolationException ("The user already exists");
 		}
+	}
+
+	/**
+	 * This method saves a user with admin privileges in the database, if this same user doesn't already exist.
+	 * 
+	 * @param user EntityUser - An EntityUser object
+	 * @return EntityUser - The recently saved EntityUser object, if creation was
+	 *         successful
+	 *         <li>null, if user already exists</li>
+	 * @throws IllegalArgumentException if the "user" parameter is null
+	 * 
+	 */
+	public EntityUser addAdminUser(EntityUser user) throws IllegalArgumentException, DataIntegrityViolationException {
+		if (user == null) {
+			throw new IllegalArgumentException("Received: null object as a parameter; Expecting: an EntityUser object");
+		}
+
+		try {
+			EntityRole adminRole = roleRepository.findByName("ROLE_ADMIN");
+			user.setRole(adminRole);
+
+			return userRepository.save(user);
+
+		} catch (DataIntegrityViolationException e){
+			throw new DataIntegrityViolationException ("The user already exists in the database");
+				}
 	}
 
 	/**

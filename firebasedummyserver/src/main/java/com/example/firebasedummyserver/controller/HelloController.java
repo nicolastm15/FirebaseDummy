@@ -8,9 +8,14 @@ import com.example.firebasedummyserver.model.Message;
 @RestController
 public class HelloController {
 
-	@GetMapping("/hello")
-	public Message sayHello() {
-		return new Message("Hello World");
+	@GetMapping("/admin/hello")
+	public Message sayHelloToAdmin() {
+		return new Message("Hello Admin");
+	}
+
+	@GetMapping("/basic/hello")
+	public Message sayHelloToUser() {
+		return new Message("Hello User");
 	}
 	
 }
