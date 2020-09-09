@@ -8,13 +8,13 @@ import {AuthContext} from '../contexts/AuthContext';
 //I saved this address inside the file ./serverUrl.json
 const httpsServer = 'http://192.168.0.109:8080';
 
-export default HelloButton = ({style}) => {
+export default HelloButton = ({style, role}) => {
   const {firebaseIdToken} = useContext(AuthContext);
 
   async function sayHello(firebaseIdToken) {
     console.log(firebaseIdToken);
     try {
-      const response = await fetch(`${httpsServer}/hello`, {
+      const response = await fetch(`${httpsServer}/${role}/hello`, {
         headers: {Authorization: `Bearer ${firebaseIdToken}`},
       });
       console.log(response.status);
@@ -27,7 +27,7 @@ export default HelloButton = ({style}) => {
   return (
     <View style = {style}>
       <Button
-        title="Say Hello"
+        title = {`Say Hello to ${role} user`}
         onPress={() => sayHello(firebaseIdToken)}></Button>
     </View>
   );

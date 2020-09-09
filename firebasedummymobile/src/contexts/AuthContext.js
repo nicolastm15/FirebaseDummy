@@ -49,7 +49,7 @@ export const AuthProvider = ({children}) => {
 
      async function googleSignUpWithMyServer(idToken) {
        try {
-         const response = await fetch(`${httpsServer}/googleuser`, {
+         const response = await fetch(`${httpsServer}/basic/user/google`, {
            headers: {Authorization: `Bearer ${idToken}`},
          });
          console.log(response.status);

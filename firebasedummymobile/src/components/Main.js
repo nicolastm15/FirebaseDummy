@@ -25,7 +25,8 @@ export default Main = () => {
         justifyContent: 'center',
       }}>
       <Text style={{marginBottom: 20}}>Welcome {user.email}</Text>
-      <HelloButton style={{marginBottom: 20}}></HelloButton>
+      <HelloButton style={{marginBottom: 20}} role = "admin"></HelloButton>
+      <HelloButton style={{marginBottom: 20}} role = "basic"></HelloButton>
       <SignOutButton></SignOutButton>
     </View>
   );
