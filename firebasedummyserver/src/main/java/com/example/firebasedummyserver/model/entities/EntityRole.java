@@ -23,7 +23,18 @@ public class EntityRole implements GrantedAuthority{
 
 	private static final long serialVersionUID = -2823311224048773918L;
 
+
+	public EntityRole(){}
+
+	public EntityRole(String roleName){
+		this.name = roleName;
+	}
+
 	@Id
+	@Column(name = "role_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
 	@Column(name = "role_name", unique = true)
 	private String name;
 
@@ -38,6 +49,14 @@ public class EntityRole implements GrantedAuthority{
 	@Override
 	public String getAuthority() {
 		return this.name;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }
