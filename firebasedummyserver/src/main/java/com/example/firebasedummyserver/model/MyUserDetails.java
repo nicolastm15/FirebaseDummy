@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserDetails implements UserDetails {
 
-   private static final long serialVersionUID = 1L;
-
+   private static final long serialVersionUID = 7612508708861251994L;
+   
    private EntityUser user;
 
    public MyUserDetails(EntityUser user){
