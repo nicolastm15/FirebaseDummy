@@ -31,6 +31,7 @@ public class EntityUser  implements Authentication {
 		setName(userRecord.getDisplayName());
 		setImageUrl(userRecord.getPhotoUrl());
 		setPhoneNumber(userRecord.getPhoneNumber());		
+		setEmailVerified(userRecord.isEmailVerified());
 	}
 
 	@Id
@@ -56,7 +57,7 @@ public class EntityUser  implements Authentication {
 	private String phoneNumber;
 
 	@Column(nullable = false)
-	private Boolean emailVerified = false;
+	private Boolean isEmailVerified = false;
 
 	private Boolean isAuthenticated = false;
 
@@ -183,18 +184,12 @@ public class EntityUser  implements Authentication {
 		this.phoneNumber = phoneNumber;
 	}
 
-	/**
-	 * @return the emailVerified
-	 */
-	public Boolean getEmailVerified() {
-		return emailVerified;
+	public Boolean isEmailVerified() {
+		return isEmailVerified;
 	}
 
-	/**
-	 * @param emailVerified the emailVerified to set
-	 */
 	public void setEmailVerified(Boolean emailVerified) {
-		this.emailVerified = emailVerified;
+		this.isEmailVerified = emailVerified;
 	}
 
 	/**
