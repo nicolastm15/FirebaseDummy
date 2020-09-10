@@ -7,7 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +19,7 @@ public class UserController {
    @Autowired
    private UserService userService;
 
-   @GetMapping("/basic/user/google")
+   @PostMapping("/basic/user/google")
    public @ResponseBody ResponseEntity<EntityUser> createBasicUser(){
       try {
          EntityUser user = (EntityUser) SecurityContextHolder.getContext().getAuthentication();
@@ -34,7 +34,7 @@ public class UserController {
       }
       
    }
-   @GetMapping("/admin/user/google")
+   @PostMapping("/admin/user/google")
    public @ResponseBody ResponseEntity<EntityUser> createAdminUser(){
       try {
          EntityUser user = (EntityUser) SecurityContextHolder.getContext().getAuthentication();

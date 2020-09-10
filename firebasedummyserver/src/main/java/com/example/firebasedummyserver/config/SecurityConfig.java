@@ -2,6 +2,7 @@ package com.example.firebasedummyserver.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,9 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.addFilterBefore(new FirebaseIdTokenFilter(), BasicAuthenticationFilter.class).authorizeRequests()
+		http.csrf().disable().addFilterBefore(new FirebaseIdTokenFilter(), BasicAuthenticationFilter.class).authorizeRequests()
 				.antMatchers("/basic/*").hasAnyRole("ADMIN","BASIC").antMatchers("/admin/*").hasRole("ADMIN")
-				.antMatchers("/basic/user/google").permitAll();
+				.antMatchers(HttpMethod.POST,"/basic/user/google").permitAll();
+
+		//TODO try to use "cors" if there are any problems when deploying this code to a remote server.
 	}
 
 }

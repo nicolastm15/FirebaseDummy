@@ -51,6 +51,7 @@ export const AuthProvider = ({children}) => {
        try {
          const response = await fetch(`${httpsServer}/basic/user/google`, {
            headers: {Authorization: `Bearer ${idToken}`},
+           method: 'POST'
          });
          console.log(response.status);
          const responseJson = await response.json();
